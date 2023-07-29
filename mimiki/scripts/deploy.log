@@ -1,0 +1,8 @@
+2023-07-29 20:41:45 로그 디렉토리 생성 중...
+2023-07-29 20:41:45 > 빌드 파일 이름: mimiki-0.0.1-SNAPSHOT-plain.war
+2023-07-29 20:41:45 > DEPLOY_WAR 배포 주소 ./build/libs/ 배포 파일 ./build/libs/mimiki-0.0.1-SNAPSHOT-plain.war
+2023-07-29 20:44:00 > 현재 실행 중인 애플리케이션 pid 확인
+2023-07-29 20:44:01 > 포트 8080에서 애플리케이션이 실행 중이지 않으므로 종료되지 않습니다.
+2023-07-29 20:44:01 clean build 
+2023-07-29 20:44:06 > 빌드 파일 이름: mimiki-0.0.1-SNAPSHOT.war
+2023-07-29 20:44:06 > DEPLOY_WAR 배포 주소 ./build/libs/ 배포 파일 ./build/libs/mimiki-0.0.1-SNAPSHOT.war

@@ -8,6 +8,11 @@ plugins {
 group = 'com.likelion'
 version = '0.0.1-SNAPSHOT'
 
+// plain.war 파일 생성방지
+war {
+    enabled = false
+}
+
 java {
     sourceCompatibility = '11'
 }

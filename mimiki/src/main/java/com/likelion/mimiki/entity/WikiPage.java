@@ -14,8 +14,8 @@ public class WikiPage {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     private String title;
-    private Long content;
+    private String content;
 }

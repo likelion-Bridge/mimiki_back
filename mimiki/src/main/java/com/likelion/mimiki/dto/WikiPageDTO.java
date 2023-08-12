@@ -6,6 +6,10 @@ import lombok.Data;
 @Data
 public class WikiPageDTO {
     private Long id;
-    private String title;
-    private String content;
+    private String name;
+    private String link;
+    private int year;
+    private String keywords;
+    private String outline;
+    private String explanation;
 }

@@ -14,10 +14,10 @@ public class WikiPage {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String Name;
-    private String PosterLink;
-    private int DataPublished;
-    private String Keywords;
-    private String Outline;
-    private String Explaination;
+    private String name;
+    private String link;
+    private int year;
+    private String keywords;
+    private String outline;
+    private String explanation;
 }

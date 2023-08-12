@@ -46,7 +46,7 @@ public class WikiService {
 
     public WikiPageDTO createWikiPage(WikiPageDTO wikiPageDTO) {
 
-        if (wikiPageDTO.getTitle() == null || wikiPageDTO.getTitle().isEmpty()) {
+        if (wikiPageDTO.getName() == null || wikiPageDTO.getName().isEmpty()) {
             throw new IllegalArgumentException("Wiki 페이지의 제목은 필수입니다.");
         }
         WikiPage wikiPage = convertToEntity(wikiPageDTO);

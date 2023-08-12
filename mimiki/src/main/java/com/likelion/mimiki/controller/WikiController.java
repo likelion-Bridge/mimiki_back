@@ -16,7 +16,7 @@ public class WikiController {
     private final WikiService wikiService;
 
     @GetMapping
-    public ResponseEntity<List<WikiPageDTO>> getAllWkikiPages() {
+    public ResponseEntity<List<WikiPageDTO>> getAllWikiPages() {
         List<WikiPageDTO> wikiPages = wikiService.getAllWikiPages();
         return ResponseEntity.ok(wikiPages);
     }

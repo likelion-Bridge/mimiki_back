@@ -34,4 +34,9 @@ public class CommentEntity extends BaseEntity {
         commentEntity.setBoardEntity(boardEntity);
         return commentEntity;
     }
+
+    //댓글 수정 기능
+    public void updateContent(String newCommentContent) {
+        this.commentContents = newCommentContent;
+    }
 }

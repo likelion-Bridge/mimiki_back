@@ -1,10 +1,10 @@
 package com.likelion.mimiki.controller;
 
-import com.likelion.mimiki.dto.WikiPageDTO;
-import com.likelion.mimiki.service.WikiService;
+
+import com.likelion.mimiki.dto.WikiPageDTOJP;
+import com.likelion.mimiki.service.WikiServiceJP;
 import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,17 +12,17 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/wiki")
-@Api(value = "Wiki API", description = "국내 밈 위키 페이지 관련 API")
-public class WikiController {
-    private final WikiService wikiService;
+@RequestMapping("/api/wiki/jp")
+@Api(value = "Wiki JP API", tags = "일본 밈 위키 페이지 관련 API")
+public class WikiControllerJP {
+    private final WikiServiceJP wikiServiceJP;
 
     @ApiOperation(value = "모든 위키 페이지 조회", tags = "위키 페이지")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "성공적으로 조회되었습니다.")})
     @GetMapping
-    public ResponseEntity<List<WikiPageDTO>> getAllWikiPages() {
-        List<WikiPageDTO> wikiPages = wikiService.getAllWikiPages();
+    public ResponseEntity<List<WikiPageDTOJP>> getAllWikiPages() {
+        List<WikiPageDTOJP> wikiPages = wikiServiceJP.getAllWikiPagesJP();
         return ResponseEntity.ok(wikiPages);
     }
 
@@ -31,40 +31,43 @@ public class WikiController {
             @ApiResponse(code = 200, message = "성공적으로 조회되었습니다.")})
     @ApiImplicitParam(name = "id", value = "조회할 위키 페이지 ID", paramType = "path", dataType = "Long", required = true)
     @GetMapping("/{id}")
-    public ResponseEntity<WikiPageDTO> getWikiPageById(@PathVariable Long id) {
-        WikiPageDTO wikiPage = wikiService.getWikiPageById(id);
+    public ResponseEntity<WikiPageDTOJP> getWikiPageById(@PathVariable Long id) {
+        WikiPageDTOJP wikiPage = wikiServiceJP.getWikiPageById(id);
         return ResponseEntity.ok(wikiPage);
     }
 
     @ApiOperation(value = "위키 페이지 생성", tags = "위키 페이지")
     @ApiResponses(value = {
             @ApiResponse(code = 201, message = "성공적으로 생성되었습니다.")})
-    @ApiImplicitParam(name = "wikiPageDTO", value = "생성할 위키 페이지 정보", paramType = "body", dataType = "WikiPageDTO", required = true)
+    @ApiImplicitParam(name = "wikiPageDTOJP", value = "생성할 위키 페이지 정보", paramType = "body", dataType = "WikiPageDTO", required = true)
     @PostMapping
-    public ResponseEntity<WikiPageDTO> createWikiPage(@RequestBody WikiPageDTO wikiPageDTO) {
-        WikiPageDTO createdWikiPage = wikiService.createWikiPage(wikiPageDTO);
-        return new ResponseEntity<>(createdWikiPage, HttpStatus.CREATED);
+    public ResponseEntity<WikiPageDTOJP> createWikiPage(@RequestBody WikiPageDTOJP wikiPageDTO) {
+        WikiPageDTOJP createdWikiPage = wikiServiceJP.createWikiPage(wikiPageDTO);
+        return ResponseEntity.ok(createdWikiPage);
     }
+
 
     @ApiOperation(value = "위키 페이지 수정", tags = "위키 페이지")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "성공적으로 수정되었습니다.")})
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "수정할 위키 페이지 ID", paramType = "path", dataType = "Long", required = true),
-            @ApiImplicitParam(name = "wikiPageDTO", value = "수정할 위키 페이지 정보", paramType = "body", dataType = "WikiPageDTO", required = true)})
+            @ApiImplicitParam(name = "wikiPageDTOJP", value = "수정할 위키 페이지 정보", paramType = "body", dataType = "WikiPageDTOJP", required = true)
+    })
     @PutMapping("/{id}")
-    public ResponseEntity<WikiPageDTO> updateWikiPage(@PathVariable Long id, @RequestBody WikiPageDTO wikiPageDTO) {
-        WikiPageDTO updatedWikiPage = wikiService.updateWikiPage(id, wikiPageDTO);
+    public ResponseEntity<WikiPageDTOJP> updateWikiPage(@PathVariable Long id, @RequestBody WikiPageDTOJP wikiPageDTO) {
+        WikiPageDTOJP updatedWikiPage = wikiServiceJP.updateWikiPage(id, wikiPageDTO);
         return ResponseEntity.ok(updatedWikiPage);
     }
 
+
     @ApiOperation(value = "위키 페이지 삭제", tags = "위키 페이지")
     @ApiResponses(value = {
-            @ApiResponse(code = 204, message = "성공적으로 삭제되었습니다.")})
+            @ApiResponse(code = 200, message = "성공적으로 삭제되었습니다.")})
     @ApiImplicitParam(name = "id", value = "삭제할 위키 페이지 ID", paramType = "path", dataType = "Long", required = true)
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteWikiPage(@PathVariable Long id) {
-        wikiService.deleteWikiPage(id);
-        return ResponseEntity.noContent().build();
+        wikiServiceJP.deleteWikiPage(id);
+        return ResponseEntity.ok().build();
     }
 }

@@ -35,7 +35,7 @@ public class CommentService {
 
     public List<CommentDTO> findAll(Long boardId) {
         WikiPage wikiPage = wikiRepository.findById(boardId).get();
-        List<CommentEntity> commentEntityList = commentRepository.findAllByBoardEntityOrderByIdDesc(wikiPage);
+        List<CommentEntity> commentEntityList = commentRepository.findAllByWikiPageOrderByIdDesc(wikiPage);
         /* EntityList -> DTOList */
         List<CommentDTO> commentDTOList = new ArrayList<>();
         for (CommentEntity commentEntity: commentEntityList) {
@@ -58,8 +58,8 @@ public class CommentService {
     }
 
     //댓글 수정 기능
-    public void updateCommentContent(Long commentId, String newCommentContent) {
-        commentRepository.updateCommentContent(commentId, newCommentContent);
-    }
+//    public void updateCommentContent(Long commentId, String newCommentContent) {
+//        commentRepository.updateCommentContent(commentId, newCommentContent);
+//    }
 
 }

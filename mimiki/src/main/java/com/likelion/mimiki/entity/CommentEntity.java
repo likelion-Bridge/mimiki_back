@@ -24,19 +24,19 @@ public class CommentEntity extends BaseEntity {
     /* Board:Comment = 1:N */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "board_id")
-    private WikiPage boardEntity;
+    private WikiPage wikiPage;
 
 
-    public static CommentEntity toSaveEntity(CommentDTO commentDTO, WikiPage boardEntity) {
+    public static CommentEntity toSaveEntity(CommentDTO commentDTO, WikiPage wikiPage) {
         CommentEntity commentEntity = new CommentEntity();
         commentEntity.setCommentWriter(commentDTO.getCommentWriter());
         commentEntity.setCommentContents(commentDTO.getCommentContents());
-        commentEntity.setBoardEntity(boardEntity);
+        commentEntity.setWikiPage(wikiPage);
         return commentEntity;
     }
 
     //댓글 수정 기능
-    public void updateContent(String newCommentContent) {
-        this.commentContents = newCommentContent;
-    }
+//    public void updateContent(String newCommentContent) {
+//        this.commentContents = newCommentContent;
+//    }
 }

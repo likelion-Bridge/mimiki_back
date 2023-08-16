@@ -1,14 +1,17 @@
 package com.likelion.mimiki.entity;
 
+import com.likelion.mimiki.dto.WikiPageDTO;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Data
-public class WikiPage {
+public class WikiPage extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,4 +22,8 @@ public class WikiPage {
     private int year;
     private String outline;
     private String explanation;
+
+    //
+    private int views; //조회수 필드 추가
+
 }

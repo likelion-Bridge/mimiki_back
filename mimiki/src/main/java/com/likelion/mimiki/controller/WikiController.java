@@ -1,11 +1,17 @@
 package com.likelion.mimiki.controller;
 
+import com.likelion.mimiki.dto.CommentDTO;
 import com.likelion.mimiki.dto.WikiPageDTO;
+import com.likelion.mimiki.entity.WikiPage;
 import com.likelion.mimiki.service.WikiService;
 import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -66,5 +72,18 @@ public class WikiController {
     public ResponseEntity<Void> deleteWikiPage(@PathVariable Long id) {
         wikiService.deleteWikiPage(id);
         return ResponseEntity.noContent().build();
+    }
+
+    //
+    @GetMapping("/wiki/{wikiPageId}")
+    @ApiOperation("Get WikiPage Details and Increment Views")
+    public String getWikiPage(@PathVariable Long wikiPageId) {
+        // 조회수 증가
+        wikiService.incrementViews(wikiPageId);
+
+        // 위키 페이지 조회 및 처리 로직...
+
+        //return "wiki-page-details";  // 적절한 뷰 이름 반환
+        return null;
     }
 }

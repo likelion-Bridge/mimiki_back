@@ -7,13 +7,10 @@ import com.likelion.mimiki.repository.WikiRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -75,20 +72,24 @@ public class WikiService {
         wikiRepository.deleteById(id);
     }
 
-    //
-    @Transactional
-    public void updateHits(Long id) {
-        wikiRepository.updateHits(id);
+    // 검색
+    public List<WikiPageDTO> searchWikiPages(String name) {
+        List<WikiPage> wikiPages = wikiRepository.findByNameContaining(name);
+        List<WikiPageDTO> wikiPageDTOS = new ArrayList<>();
+
+        for (int i=0; i<wikiPages.size(); i++) {
+            WikiPage wikiPage = wikiPages.get(i);
+            WikiPageDTO wikiPageDTO = convertToDTO(wikiPage);
+            wikiPageDTOS.add(wikiPageDTO);
+        }
+        return wikiPageDTOS;
     }
 
-    public WikiPageDTO findById(Long id) {
-        Optional<WikiPage> optionalWikiPage = wikiRepository.findById(id);
-        if(optionalWikiPage.isPresent()){
-            WikiPage wikiPage = optionalWikiPage.get();
-            WikiPageDTO wikiPageDTO = WikiPageDTO.toWikiPageDTO(wikiPage);
-            return wikiPageDTO;
-        }else{
-            return null;
-        }
+    // 년도별 조회
+    public List<WikiPageDTO> getWikiPageByYear(int year) {
+        List<WikiPage> wikiPages = wikiRepository.findByYear(year);
+        return wikiPages.stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
     }
 }

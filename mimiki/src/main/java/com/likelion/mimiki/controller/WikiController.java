@@ -6,8 +6,6 @@ import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -34,8 +32,8 @@ public class WikiController {
     @ApiImplicitParam(name = "id", value = "조회할 위키 페이지 ID", paramType = "path", dataType = "Long", required = true)
     @GetMapping("/{id}")
     public ResponseEntity<WikiPageDTO> getWikiPageById(@PathVariable Long id) {
-        WikiPageDTO wikiPageDTO = wikiService.getWikiPageById(id);
-        return ResponseEntity.ok(wikiPageDTO);
+        WikiPageDTO wikiPage = wikiService.getWikiPageById(id);
+        return ResponseEntity.ok(wikiPage);
     }
 
     @ApiOperation(value = "위키 페이지 생성", tags = "위키 페이지")
@@ -68,15 +66,5 @@ public class WikiController {
     public ResponseEntity<Void> deleteWikiPage(@PathVariable Long id) {
         wikiService.deleteWikiPage(id);
         return ResponseEntity.noContent().build();
-    }
-
-    //
-    //@ApiOperation(value ="위키 페이지 조회수", tags = "위키 페이지")
-    @GetMapping("/{id}/")
-    public int findById(@PathVariable Long id, Model model) {
-        wikiService.updateHits(id);
-        WikiPageDTO wikiPageDTO = wikiService.findById(id);
-        model.addAttribute("wikiPage", wikiPageDTO);
-        return wikiPageDTO.getWikiPageHits();
     }
 }

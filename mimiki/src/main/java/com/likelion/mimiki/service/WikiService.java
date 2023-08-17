@@ -9,6 +9,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -69,5 +70,18 @@ public class WikiService {
             throw new WikiNotFoundException("Wiki 페이지를 찾을 수 없습니다. id : " + id);
         }
         wikiRepository.deleteById(id);
+    }
+
+    // 검색
+    public List<WikiPageDTO> searchWikiPages(String name) {
+        List<WikiPage> wikiPages = wikiRepository.findByNameContaining(name);
+        List<WikiPageDTO> wikiPageDTOS = new ArrayList<>();
+
+        for (int i=0; i<wikiPages.size(); i++) {
+            WikiPage wikiPage = wikiPages.get(i);
+            WikiPageDTO wikiPageDTO = convertToDTO(wikiPage);
+            wikiPageDTOS.add(wikiPageDTO);
+        }
+        return wikiPageDTOS;
     }
 }

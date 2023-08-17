@@ -67,4 +67,15 @@ public class WikiController {
         wikiService.deleteWikiPage(id);
         return ResponseEntity.noContent().build();
     }
+
+    // 검색
+    @ApiOperation(value = "위키페이지 검색", tags = "위키 페이지")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "성공적으로 조회됐습니다.")})
+    @ApiImplicitParam(name = "name", value = "검색할 내용", paramType = "path", dataType = "String", readOnly = true)
+    @GetMapping("/search/{name}")
+    public ResponseEntity<List<WikiPageDTO>> searchWikiPages(@PathVariable String name) {
+        List<WikiPageDTO> wikiPages = wikiService.searchWikiPages(name);
+        return ResponseEntity.ok(wikiPages);
+    }
 }

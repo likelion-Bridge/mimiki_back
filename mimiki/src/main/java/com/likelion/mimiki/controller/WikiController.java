@@ -6,6 +6,7 @@ import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -70,7 +71,7 @@ public class WikiController {
     }
 
     //
-    @ApiOperation(value ="위키 페이지 조회수", tags = "위키 페이지")
+    //@ApiOperation(value ="위키 페이지 조회수", tags = "위키 페이지")
     @GetMapping("/{id}/")
     public int findById(@PathVariable Long id, Model model) {
         wikiService.updateHits(id);

@@ -57,6 +57,16 @@ public class CommentService {
         }
     }
 
+    //댓글 조회 기능
+    public List<CommentEntity> getAllComments() {
+        return commentRepository.findAll();
+    }
+
+    //id 로 댓글 조회
+    public CommentEntity getCommentById(Long id) {
+        return commentRepository.findById(id).orElse(null);
+    }
+
     //댓글 수정 기능
 //    public void updateCommentContent(Long commentId, String newCommentContent) {
 //        commentRepository.updateCommentContent(commentId, newCommentContent);

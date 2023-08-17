@@ -23,7 +23,7 @@ public class CommentEntity extends BaseEntity {
 
     /* Board:Comment = 1:N */
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "board_id")
+    @JoinColumn(name = "wikiPage_id")
     private WikiPage wikiPage;
 
 

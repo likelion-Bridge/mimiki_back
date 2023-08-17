@@ -11,6 +11,9 @@ import java.util.List;
 
 @Entity
 @Data
+@Getter
+@Setter
+@Table(name = "mimiki_data")
 public class WikiPage extends BaseEntity {
 
     @Id
@@ -20,10 +23,14 @@ public class WikiPage extends BaseEntity {
     private String name;
     private String link;
     private int year;
+    private String Keywords;
     private String outline;
     private String explanation;
 
     //
     private int wikiPageHits; //조회수 필드 추가
 
+
+    @OneToMany(mappedBy = "wikiPage", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<CommentEntity> commentEntityList = new ArrayList<>();
 }

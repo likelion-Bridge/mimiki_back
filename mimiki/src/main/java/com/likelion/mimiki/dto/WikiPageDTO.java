@@ -13,6 +13,7 @@ public class WikiPageDTO {
     private String name;
     private String link;
     private int year;
+    private String Keywords;
     private String outline;
     private String explanation;
     private int wikiPageHits;
@@ -21,8 +22,6 @@ public class WikiPageDTO {
         WikiPageDTO wikiPageDTO = new WikiPageDTO();
         wikiPageDTO.setId(wikiPage.getId());
         wikiPageDTO.setWikiPageHits(wikiPage.getWikiPageHits());
-    //  wikiPageDTO.setBoardCreatedTime(wikiPage.getCreatedTime());
-    // wikiPageDTO.setBoardUpdatedTime(wikiPage.getUpdatedTime());
 
         return wikiPageDTO;
     }

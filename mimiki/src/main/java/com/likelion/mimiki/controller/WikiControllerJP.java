@@ -70,4 +70,26 @@ public class WikiControllerJP {
         wikiServiceJP.deleteWikiPage(id);
         return ResponseEntity.ok().build();
     }
+
+    // 검색
+    @ApiOperation(value = "위키 페이지 검색", tags = "위키 페이지")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "성공적으로 검색되었습니다.")})
+    @ApiImplicitParam(name = "name", value = "검색할 위키 페이지 이름", paramType = "path", dataType = "String", required = true)
+    @GetMapping("/search/{name}")
+    public ResponseEntity<List<WikiPageDTOJP>> searchWikiPage(@PathVariable String name) {
+        List<WikiPageDTOJP> wikiPages = wikiServiceJP.searchWikiPage(name);
+        return ResponseEntity.ok(wikiPages);
+    }
+
+    // 년도별 분류
+    @ApiOperation(value = "년도별 위키 페이지 분류", tags = "위키 페이지")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "성공적으로 분류되었습니다.")})
+    @ApiImplicitParam(name = "year", value = "분류할 위키 페이지 년도", paramType = "path", dataType = "int", required = true)
+    @GetMapping("/year/{year}")
+    public ResponseEntity<List<WikiPageDTOJP>> searchWikiPage(@PathVariable int year) {
+        List<WikiPageDTOJP> wikiPages = wikiServiceJP.searchWikiPageByYear(year);
+        return ResponseEntity.ok(wikiPages);
+    }
 }

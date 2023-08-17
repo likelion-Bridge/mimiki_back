@@ -72,4 +72,19 @@ public class WikiServiceJP {
         }
         wikiRepositoryJP.deleteById(id);
     }
+
+    // 검색
+    public List<WikiPageDTOJP> searchWikiPage(String keyword) {
+        return wikiRepositoryJP.findByNameContaining(keyword).stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
+    }
+
+    // 년도별 조회
+    public List<WikiPageDTOJP> searchWikiPageByYear(int year) {
+        List<WikiPageJP> wikiPages = wikiRepositoryJP.findByYear(year);
+        return wikiPages.stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
+    }
 }

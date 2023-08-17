@@ -84,4 +84,12 @@ public class WikiService {
         }
         return wikiPageDTOS;
     }
+
+    // 년도별 조회
+    public List<WikiPageDTO> getWikiPageByYear(int year) {
+        List<WikiPage> wikiPages = wikiRepository.findByYear(year);
+        return wikiPages.stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
+    }
 }

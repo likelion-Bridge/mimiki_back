@@ -1,14 +1,9 @@
 package com.likelion.mimiki.controller;
 
-import com.likelion.mimiki.dto.CommentDTO;
 import com.likelion.mimiki.dto.WikiPageDTO;
-import com.likelion.mimiki.entity.WikiPage;
 import com.likelion.mimiki.service.WikiService;
 import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
@@ -75,11 +70,12 @@ public class WikiController {
     }
 
     //
+    @ApiOperation(value ="위키 페이지 조회수", tags = "위키 페이지")
     @GetMapping("/{id}/")
-    public String findById(@PathVariable Long id, Model model) {
+    public int findById(@PathVariable Long id, Model model) {
         wikiService.updateHits(id);
         WikiPageDTO wikiPageDTO = wikiService.findById(id);
         model.addAttribute("wikiPage", wikiPageDTO);
-        return null;
+        return wikiPageDTO.getWikiPageHits();
     }
 }

@@ -67,4 +67,26 @@ public class WikiController {
         wikiService.deleteWikiPage(id);
         return ResponseEntity.noContent().build();
     }
+
+    // 검색
+    @ApiOperation(value = "위키페이지 검색", tags = "위키 페이지")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "성공적으로 조회됐습니다.")})
+    @ApiImplicitParam(name = "name", value = "검색할 내용", paramType = "path", dataType = "String", readOnly = true)
+    @GetMapping("/search/{name}")
+    public ResponseEntity<List<WikiPageDTO>> searchWikiPages(@PathVariable String name) {
+        List<WikiPageDTO> wikiPages = wikiService.searchWikiPages(name);
+        return ResponseEntity.ok(wikiPages);
+    }
+
+    // 년도별 분류
+    @ApiOperation(value = "년도별 위키 페이지 조회", tags = "위키 페이지")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "성공적으로 조회되었습니다.")})
+    @ApiImplicitParam(name = "year", value = "조회할 위키 페이지 년도", paramType = "path", dataType = "int", required = true)
+    @GetMapping("/year/{year}")
+    public ResponseEntity<List<WikiPageDTO>> getWikiPagesByYear(@PathVariable int year) {
+        List<WikiPageDTO> wikiPages = wikiService.getWikiPageByYear(year);
+        return ResponseEntity.ok(wikiPages);
+    }
 }

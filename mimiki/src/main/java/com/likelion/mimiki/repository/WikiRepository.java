@@ -14,7 +14,7 @@ public interface WikiRepository extends JpaRepository<WikiPage, Long> {
 
     //
     @Modifying
-    @Query("UPDATE WikiPage wp SET wp.views = wp.views + 1 WHERE wp.id = :wikiPageId")
-    void incrementViews(@Param("wikiPageId") Long wikiPageId);
+    @Query(value = "update WikiPage w set w.wikiPageHits=w.wikiPageHits+1 where w.id=:id")
+    void updateHits(@Param("id") Long id);
 
 }

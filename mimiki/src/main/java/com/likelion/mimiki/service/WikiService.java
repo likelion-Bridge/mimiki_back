@@ -76,7 +76,19 @@ public class WikiService {
     }
 
     //
-    public void incrementViews(Long wikiPageId) {
-        wikiRepository.incrementViews(wikiPageId);
+    @Transactional
+    public void updateHits(Long id) {
+        wikiRepository.updateHits(id);
+    }
+
+    public WikiPageDTO findById(Long id) {
+        Optional<WikiPage> optionalWikiPage = wikiRepository.findById(id);
+        if(optionalWikiPage.isPresent()){
+            WikiPage wikiPage = optionalWikiPage.get();
+            WikiPageDTO wikiPageDTO = WikiPageDTO.toWikiPageDTO(wikiPage);
+            return wikiPageDTO;
+        }else{
+            return null;
+        }
     }
 }

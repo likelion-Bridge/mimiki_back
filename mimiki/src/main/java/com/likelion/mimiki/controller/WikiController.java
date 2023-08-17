@@ -38,8 +38,8 @@ public class WikiController {
     @ApiImplicitParam(name = "id", value = "조회할 위키 페이지 ID", paramType = "path", dataType = "Long", required = true)
     @GetMapping("/{id}")
     public ResponseEntity<WikiPageDTO> getWikiPageById(@PathVariable Long id) {
-        WikiPageDTO wikiPage = wikiService.getWikiPageById(id);
-        return ResponseEntity.ok(wikiPage);
+        WikiPageDTO wikiPageDTO = wikiService.getWikiPageById(id);
+        return ResponseEntity.ok(wikiPageDTO);
     }
 
     @ApiOperation(value = "위키 페이지 생성", tags = "위키 페이지")
@@ -75,15 +75,11 @@ public class WikiController {
     }
 
     //
-    @GetMapping("/wiki/{wikiPageId}")
-    @ApiOperation("Get WikiPage Details and Increment Views")
-    public String getWikiPage(@PathVariable Long wikiPageId) {
-        // 조회수 증가
-        wikiService.incrementViews(wikiPageId);
-
-        // 위키 페이지 조회 및 처리 로직...
-
-        //return "wiki-page-details";  // 적절한 뷰 이름 반환
+    @GetMapping("/{id}/")
+    public String findById(@PathVariable Long id, Model model) {
+        wikiService.updateHits(id);
+        WikiPageDTO wikiPageDTO = wikiService.findById(id);
+        model.addAttribute("wikiPage", wikiPageDTO);
         return null;
     }
 }

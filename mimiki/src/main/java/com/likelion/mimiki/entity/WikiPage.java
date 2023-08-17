@@ -24,6 +24,6 @@ public class WikiPage extends BaseEntity {
     private String explanation;
 
     //
-    private int views; //조회수 필드 추가
+    private int wikiPageHits; //조회수 필드 추가
 
 }

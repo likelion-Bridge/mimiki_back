@@ -21,4 +21,5 @@ public class WikiPageJP {
     private int year;
     private String outline;
     private String explanation;
+    private int wikiPageHits;
 }

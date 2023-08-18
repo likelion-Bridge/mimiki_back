@@ -13,8 +13,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/comment")
-
+@RequestMapping("api/wiki/comment")
 public class CommentController {
     private final CommentService commentService;
     @PostMapping("/save")

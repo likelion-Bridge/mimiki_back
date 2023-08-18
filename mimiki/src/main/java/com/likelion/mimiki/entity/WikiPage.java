@@ -3,13 +3,13 @@ package com.likelion.mimiki.entity;
 import com.likelion.mimiki.dto.WikiPageDTO;
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Data
-public class WikiPage {
+public class WikiPage extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,16 +19,11 @@ public class WikiPage {
     private String link;
     private int year;
     private String outline;
+    @Lob
     private String explanation;
     private int wikiPageHits;
 
-    public static WikiPageDTO toWikiPageDTO(WikiPage wikiPage) {
-        WikiPageDTO wikiPageDTO = new WikiPageDTO();
-        wikiPageDTO.setId(wikiPage.getId());
-        wikiPageDTO.setWikiPageHits(wikiPage.getWikiPageHits());
-        //  wikiPageDTO.setBoardCreatedTime(wikiPage.getCreatedTime());
-        // wikiPageDTO.setBoardUpdatedTime(wikiPage.getUpdatedTime());
 
-        return wikiPageDTO;
-    }
+    @OneToMany(mappedBy = "wikiPage", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<CommentEntity> commentEntityList = new ArrayList<>();
 }

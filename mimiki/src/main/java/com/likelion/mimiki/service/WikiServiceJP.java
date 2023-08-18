@@ -9,7 +9,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -86,5 +90,20 @@ public class WikiServiceJP {
         return wikiPages.stream()
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());
+    }
+
+    // 조회수 증가
+    @Transactional
+    public void updatateHits(Long id) {wikiRepositoryJP.updateHits(id);}
+
+    public WikiPageDTOJP findById(Long id) {
+        Optional<WikiPageJP> optionalWikiPageJP = wikiRepositoryJP.findById(id);
+        if (optionalWikiPageJP.isPresent()) {
+            WikiPageJP wikiPageJP = optionalWikiPageJP.get();
+            WikiPageDTOJP wikiPageDTOJP = WikiPageDTOJP.toWikiPageDTO(wikiPageJP);
+            return wikiPageDTOJP;
+        } else {
+            return null;
+        }
     }
 }

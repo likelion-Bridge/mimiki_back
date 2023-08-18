@@ -26,13 +26,14 @@ public class WikiController {
         return ResponseEntity.ok(wikiPages);
     }
 
-    @ApiOperation(value = "ID로 위키 페이지 조회", tags = "위키 페이지")
+    @ApiOperation(value = "ID로 위키 페이지 조회, 조회수 증가", tags = "위키 페이지")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "성공적으로 조회되었습니다.")})
     @ApiImplicitParam(name = "id", value = "조회할 위키 페이지 ID", paramType = "path", dataType = "Long", required = true)
     @GetMapping("/{id}")
     public ResponseEntity<WikiPageDTO> getWikiPageById(@PathVariable Long id) {
         WikiPageDTO wikiPage = wikiService.getWikiPageById(id);
+        wikiService.updateHits(id);
         return ResponseEntity.ok(wikiPage);
     }
 
